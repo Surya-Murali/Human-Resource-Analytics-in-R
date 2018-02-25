@@ -168,3 +168,89 @@ sub$lasteval[sub$last_evaluation >= 0.8] = '1.Very Good'
 sub$lasteval[sub$last_evaluation >= 0.6 & last_evaluation < 0.8 ] = '2.Average'
 sub$lasteval[sub$last_evaluation < 0.6 ] = '3.Bad'
 summary(sub)
+
+ha= lm(sub$satisfaction_level~sub$promotion_last_5years, data=sub)
+summary(ha)
+mean(sub$last_evaluation)
+sub$number_project="5+"
+#boxplot(sub$promotion_last_5years, main = "Histogram of Satisfaction", xlab = "Satisfaction")
+table = table(sub$number_project, sub$promotion_last_5years, sub$leftFlag, sub$satisfaction, sub$lasteval)
+df= as.data.frame(table)
+df
+df$Projects = df$Var1
+df$Var1 = NULL
+df$PromotionFlag = df$Var2
+df$Var2 = NULL
+df$LeftFlag = df$Var3
+df$Var3 = NULL
+df$satisfaction = df$Var4
+df$Var4 = NULL
+df$lastEval = df$Var5
+df$Var5 = NULL
+Notleft = df[df$LeftFlag=='Not Left',]
+vgood=Notleft[Notleft$lastEval=='1.Very Good',]
+final=vgood[vgood$PromotionFlag=='0',]
+final$PromotionFlag=NULL
+final$LeftFlag=NULL
+final=final[final$satisfaction!='1.Maximum' & final$satisfaction!='2.High',]
+final$lastEval="Very Good"
+final$Projects="More than 5"
+final
+sum(final$Freq)
+
+sub3 = mydata[mydata$number_project<3,]
+sub3$lasteval[sub3$last_evaluation >= 0.8] = '1.Very Good'
+sub3$lasteval[sub3$last_evaluation >= 0.6 & last_evaluation < 0.8 ] = '2.Average'
+sub3$lasteval[sub3$last_evaluation < 0.6 ] = '3.Bad'
+sub3
+sub3$number_project="3-"
+#boxplot(sub3$promotion_last_5years, main = "Histogram of Satisfaction", xlab = "Satisfaction")
+table = table(sub3$number_project, sub3$promotion_last_5years, sub3$leftFlag, sub3$satisfaction, sub3$lasteval)
+df= as.data.frame(table)
+df
+df$Projects = df$Var1
+df$Var1 = NULL
+df$PromotionFlag = df$Var2
+df$Var2 = NULL
+df$LeftFlag = df$Var3
+df$Var3 = NULL
+df$satisfaction = df$Var4
+df$Var4 = NULL
+df$lastEval = df$Var5
+df$Var5 = NULL
+Notleft = df[df$LeftFlag=='Not Left',]
+vgood=Notleft[Notleft$lastEval=='1.Very Good',]
+final=vgood[vgood$PromotionFlag=='0',]
+final$PromotionFlag=NULL
+final$LeftFlag=NULL
+final=final[final$satisfaction!='1.Maximum' & final$satisfaction!='2.High',]
+final
+final$lastEval="Very Good"
+final$Projects="Less than 3"
+final
+sum(final$Freq)
+
+
+par(mfrow=c(1,1))
+
+mean(sub$last_evaluation)
+mean(sub$left)
+df$Freq[Var2=]
+sub$left
+table = table(sub$number_project, sub$left)
+df= as.data.frame(table)
+
+tr <- function(a){
+  ggplot(data = mydata, aes(x= a, y=..density..)) + geom_histogram(fill="blue",color="red",alpha = 0.5,bins =100) +
+    geom_density()+labs(x="Satisfaction")
+}
+
+par(mfrow=c(2,2))
+tr(mydata$satisfaction_level)
+tr(mydata$last_evaluation)
+tr(mydata$average_montly_hours)
+tr(mydata$time_spend_company)
+
+ggplot(subset(mydata,left==1), aes(x = factor('Salary'), fill = factor(salary))) +
+  geom_bar(width = 1, position = "fill", color = "black") + coord_polar(theta = "y")+theme_bw()+
+  labs(title="Salary")

@@ -1,4 +1,4 @@
-setwd("C:/Users/surya/Desktop/SpringSemester/Statistical Computing/Final Project")
+setwd("C:/Users/surya/Desktop/SpringSemester")
 
 install.packages("caret")
 library(caret)

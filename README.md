@@ -1,6 +1,6 @@
 # Human-Resource-Analytics-in-R
 
-A Human Resource Analytics project that addresses the question ***"Why do employees leave?"***. It also helps us better understand employee satisfaction by considering factors like:
+A Human Resource Analytics project that addresses the question ** *"Why do employees leave?"* **. It also helps us better understand employee satisfaction by considering factors like:
 
 * Last Evaluation
 * Number of Projects

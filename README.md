@@ -11,3 +11,5 @@ A Human Resource Analytics project that addresses the question **"Why do employe
 * Left / Not Left
 * Promotion in the Last 5 Years
 * Salary Order
+
+The dataset is taken from Kaggle: https://www.kaggle.com/ludobenistant/hr-analytics

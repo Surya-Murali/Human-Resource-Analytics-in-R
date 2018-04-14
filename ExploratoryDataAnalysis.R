@@ -3,6 +3,8 @@ setwd("C:/Users/surya/Desktop/SpringSemester")
 #load the data
 mydata = read.csv("HR_comma_sep.csv")
 
+#********************DATA MANIPULATION AND DATA PREPARATION********************
+
 #Adding a new column called 'salaryOrder'
 mydata$salaryOrder[which(mydata$salary == "low")] = 1
 mydata$salaryOrder[which(mydata$salary == "medium")] = 2
@@ -23,6 +25,11 @@ mydata$employee_satisfaction = as.factor(mydata$employee_satisfaction)
 mydata$leftFlag[mydata$left ==  1] = 'Left'
 mydata$leftFlag[mydata$left ==  0] = 'Not Left'
 
+
+#********************EDA********************
+
+#********************SUMMARY********************
+
 #Data Summary
 dim(mydata)
 str(mydata)
@@ -33,8 +40,6 @@ sapply(mydata,class)
 #par(mfrow=c(1,1))
 
 #attach(mydata)
-
-#********************EDA********************
 
 #********************HISTOGRAMS********************
 
@@ -71,6 +76,20 @@ projectsPlotData <- table(mydata$leftFlag, mydata$number_project)
 barplot(projectsPlotData, main="Employees Left / Not Left vs No. of Projects",
         xlab="Number of Projects", col=c("purple","orange"),
         legend = rownames(projectsPlotData), beside=TRUE)
+
+
+#********************PIE CHART********************
+
+p = ggplot(subset(mydata,left==1), aes(x = factor('Salary'), fill = factor(salary))) +
+  geom_bar(width = 1, position = "fill", color = "black") + coord_polar(theta = "y")+theme_bw()+
+  ggtitle("Salary Splitup") +xlab("")+ylab("") + scale_fill_discrete(name="Salary")
+
+p = p + theme(
+  plot.title = element_text(color="Black", size=14, face="bold.italic", hjust = 0.5),
+  axis.title.x = element_text(color="Black", size=14, face="bold"),
+  axis.title.y = element_text(color="Black", size=14, face="bold")
+)
+print(p)
 
 
 #********************Frequency By Salary Order of Employees********************
@@ -155,12 +174,38 @@ p = p + theme(
 )
 print(p)
 
+#********************Number of Projects Vs  Last Evaluation Score of Employees********************
+
+p<-ggplot(mydata, aes(x = factor(number_project), y = last_evaluation, fill=factor(left))) +
+  geom_boxplot() + scale_fill_manual(values = c("orange", "purple"))+
+  ggtitle("Number of Projects Vs  Last Evaluation Score of Employees") +xlab("Number of Projects") +ylab("Last Evaluation")
+
+p = p + theme(
+  plot.title = element_text(color="Black", size=14, face="bold.italic", hjust = 0.5),
+  axis.title.x = element_text(color="Black", size=14, face="bold"),
+  axis.title.y = element_text(color="Black", size=14, face="bold")
+)
+print(p)
+
+#********************Number of Projects Vs  Average Montly Hours of Employees********************
+
+p<-ggplot(mydata, aes(x = factor(number_project), y = average_montly_hours, fill=factor(left))) +
+  geom_boxplot() + scale_fill_manual(values = c("orange", "purple"))+
+  ggtitle("Number of Projects Vs  Average Montly Hours of Employees") +xlab("Number of Projects") +ylab("Average Montly Hours")
+
+p = p + theme(
+  plot.title = element_text(color="Black", size=14, face="bold.italic", hjust = 0.5),
+  axis.title.x = element_text(color="Black", size=14, face="bold"),
+  axis.title.y = element_text(color="Black", size=14, face="bold")
+)
+print(p)
+
 #********************Correlations********************
 
+par(mfrow=c(1,1))
 #install.packages("corrplot")
 library(corrplot)
 #Check for correlations for all the variables
 corrplot(cor(mydata[ ,c("last_evaluation","number_project","average_montly_hours","time_spend_company","Work_accident", "satisfaction_level", "left", "promotion_last_5years", "salaryOrder")]), method = "square", type="lower") 
 #Check for correlations for the variables of interest
 corrplot(cor(mydata[ ,c("satisfaction_level","last_evaluation","number_project","average_montly_hours","time_spend_company","left")]), method = "square", type="full")
-

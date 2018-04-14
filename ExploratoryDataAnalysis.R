@@ -31,11 +31,6 @@ summary(mydata)
 sapply(mydata,class)
 
 #par(mfrow=c(1,1))
-#corrplot(cor(mydata[ ,c("satisfaction_level","last_evaluation","number_project","average_montly_hours","time_spend_company","left")]), method = "square", type="full") # Check for correlations
-
-#tempData = mydata[,c( "roleN","salaryOrder","satisfaction_level","last_evaluation","number_project","promotion_last_5years","Work_accident", "average_montly_hours","time_spend_company","left")]
-#corrplot( cor(as.matrix(tempData), method = "pearson", use = "complete.obs") ,is.corr = FALSE, type = "lower", order = "hclust", 
-#         tl.col = "black", tl.srt = 45)
 
 #attach(mydata)
 
@@ -159,4 +154,13 @@ p = p + theme(
   axis.title.y = element_text(color="Black", size=14, face="bold")
 )
 print(p)
+
+#********************Correlations********************
+
+#install.packages("corrplot")
+library(corrplot)
+#Check for correlations for all the variables
+corrplot(cor(mydata[ ,c("last_evaluation","number_project","average_montly_hours","time_spend_company","Work_accident", "satisfaction_level", "left", "promotion_last_5years", "salaryOrder")]), method = "square", type="lower") 
+#Check for correlations for the variables of interest
+corrplot(cor(mydata[ ,c("satisfaction_level","last_evaluation","number_project","average_montly_hours","time_spend_company","left")]), method = "square", type="full")
 

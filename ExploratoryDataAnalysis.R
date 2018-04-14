@@ -31,7 +31,7 @@ summary(mydata)
 sapply(mydata,class)
 
 #par(mfrow=c(1,1))
-corrplot(cor(mydata[ ,c("satisfaction_level","last_evaluation","number_project","average_montly_hours","time_spend_company","left")]), method = "square", type="full") # Check for correlations
+#corrplot(cor(mydata[ ,c("satisfaction_level","last_evaluation","number_project","average_montly_hours","time_spend_company","left")]), method = "square", type="full") # Check for correlations
 
 #tempData = mydata[,c( "roleN","salaryOrder","satisfaction_level","last_evaluation","number_project","promotion_last_5years","Work_accident", "average_montly_hours","time_spend_company","left")]
 #corrplot( cor(as.matrix(tempData), method = "pearson", use = "complete.obs") ,is.corr = FALSE, type = "lower", order = "hclust", 
@@ -63,6 +63,7 @@ boxplot(mydata$time_spend_company, main = "Time Spent in Company")
 
 #********************Satisfaction Vs Employees Left / Not Left********************
 
+par(mfrow=c(1,1))
 #Create a barplot 'Employees left vs Satisfaction'
 SatisfactionAndLeftTable <- table(mydata$leftFlag, mydata$employee_satisfaction)
 barplot(SatisfactionAndLeftTable, main="Satisfaction Vs Employees Left / Not Left",
@@ -158,3 +159,4 @@ p = p + theme(
   axis.title.y = element_text(color="Black", size=14, face="bold")
 )
 print(p)
+

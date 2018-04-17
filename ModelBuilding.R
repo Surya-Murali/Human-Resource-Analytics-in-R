@@ -1,4 +1,4 @@
-setwd("C:/Users/surya/Desktop/SpringSemester/Flex 4/DAM/Final Project")
+setwd("C:/Users/surya/Desktop/SpringSemester/Flex 4")
 
 #load the data
 mydata = read.csv("HR_comma_sep.csv")
@@ -26,7 +26,6 @@ mydata$leftFlag[mydata$left ==  1] = 'Left'
 mydata$leftFlag[mydata$left ==  0] = 'Not Left'
 
 #********************LOGISTIC REGRESSION FOR 'LEFT' VARIABLE********************
-
 
 logisticModel<-glm(left ~ satisfaction_level + last_evaluation + number_project 
                 + average_montly_hours + time_spend_company + Work_accident

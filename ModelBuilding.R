@@ -33,8 +33,10 @@ logisticModel<-glm(left ~ satisfaction_level + last_evaluation + number_project
                 data=mydata, family=binomial(link="logit"))
 summary(logisticModel)
 
+#Multicollinearity Check
+#Variance Inflation factor
 library(car)
-vif(reg_all_us)
+vif(logisticModel)
 
 head(mydata[,c(1:6,8,11)])
 
